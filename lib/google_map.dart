@@ -35,8 +35,12 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         children: [
           Expanded(
             child: GoogleMap(
+              //! Set the type of map
+              // mapType: MapType.hybrid,
+              //! Set the controller
               onMapCreated: (controller) {
                 mapController = controller;
+                initMapStyle();
               },
               //! Set the initial camera position
               initialCameraPosition: initCameraPosition,
@@ -89,4 +93,17 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
       ),
     );
   }
+
+  Future<void> initMapStyle() async {
+    var mapStyle = await DefaultAssetBundle.of(context)
+        .loadString('assets/map_styles/retro_style.json');
+    mapController!.setMapStyle(mapStyle);
+  }
 }
+
+
+
+//! we can change map style using 
+//? https://snazzymaps.com/explore?sort=recent
+//? https://stylist.atlist.com/
+//? https://console.cloud.google.com/google/maps-apis/studio/styles
